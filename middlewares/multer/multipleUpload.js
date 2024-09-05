@@ -5,7 +5,7 @@ import path from 'path'
 // Configure multer storage and file name
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, './uploads/employees/profile');
+      cb(null, './uploads');
     },
     filename: (req, file, cb) => {
       cb(null, Date.now() + '-' + file.originalname);

@@ -5,10 +5,19 @@ import connectDB from "./Database/DB-connection.js"
 import FileUploadRoutes from "./routes/FileUploadRoutes.js"
 import { fileURLToPath } from 'url'
 import { dirname, join } from "path"
+import fs from 'fs'
 import { errorHandler, notFound } from "./middlewares/errorMiddleWare.js"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename);
+
+// Define the path for the uploads directory
+const uploadsPath = join(__dirname, 'uploads');
+
+// Create the uploads directory if it doesn't exist
+if (!fs.existsSync(uploadsPath)) {
+    fs.mkdirSync(uploadsPath, { recursive: true });
+}
 
 dotenv.config()
 
@@ -27,7 +36,7 @@ app.get("/", (req, res, next) => {
 })
 
 app.use('/multiple', FileUploadRoutes)
-app.use('/', express.static(join(__dirname, 'uploads')))
+app.use('/', express.static(uploadsPath))
 
 app.use(notFound)
 app.use(errorHandler)
