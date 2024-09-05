@@ -16,7 +16,7 @@ export const uploadMultipleFiles = async (req, res, next) => {
                 const filePaths = [];
 
                 files.forEach((file) => {
-                    const filePath = `uploads/employees/profile/${file.filename}`;
+                    const filePath = `uploads/${file.filename}`;
                     fs.rename(file.path, filePath, (err) => {
                     if (err) {
                         // Handle error appropriately and send an error response
